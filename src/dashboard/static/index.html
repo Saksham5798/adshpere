@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdSphere | Real-Time Bidding Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- ChartJS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon"></div>
+                <span class="logo-text">AdSphere<span class="version">RTB</span></span>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button class="nav-item active" onclick="switchTab('overview')">
+                    <i data-lucide="bar-chart-3"></i>
+                    <span>Overview</span>
+                </button>
+                <button class="nav-item" onclick="switchTab('campaigns')">
+                    <i data-lucide="layers"></i>
+                    <span>Campaigns</span>
+                </button>
+                <button class="nav-item" onclick="switchTab('users')">
+                    <i data-lucide="users"></i>
+                    <span>User Profiles</span>
+                </button>
+                <button class="nav-item" onclick="switchTab('simulator')">
+                    <i data-lucide="play-circle"></i>
+                    <span>RTB Simulator</span>
+                </button>
+                <button class="nav-item" onclick="switchTab('logs')">
+                    <i data-lucide="list-checks"></i>
+                    <span>Logs & Fraud</span>
+                </button>
+            </nav>
+            
+            <div class="server-status">
+                <div class="status-indicator online"></div>
+                <span>Engine Active</span>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h1 id="page-title">Analytics Overview</h1>
+                <div class="actions">
+                    <button class="btn btn-secondary btn-icon" onclick="refreshAllData()">
+                        <i data-lucide="refresh-cw"></i> Refresh Data
+                    </button>
+                </div>
+            </header>
+
+            <!-- TAB: OVERVIEW -->
+            <section id="tab-overview" class="tab-pane active">
+                <!-- KPI Cards Grid -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrapper revenue">
+                            <i data-lucide="dollar-sign"></i>
+                        </div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Platform Revenue</span>
+                            <h2 class="kpi-value" id="kpi-revenue">$0.00</h2>
+                            <span class="kpi-subtext">Total publisher earnings</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrapper impressions">
+                            <i data-lucide="eye"></i>
+                        </div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Ad Impressions</span>
+                            <h2 class="kpi-value" id="kpi-impressions">0</h2>
+                            <span class="kpi-subtext">Auctions successfully run</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrapper clicks">
+                            <i data-lucide="mouse-pointer-click"></i>
+                        </div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Total Clicks</span>
+                            <h2 class="kpi-value" id="kpi-clicks">0</h2>
+                            <span class="kpi-subtext">User engagement actions</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon-wrapper ctr">
+                            <i data-lucide="activity"></i>
+                        </div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Average CTR</span>
+                            <h2 class="kpi-value" id="kpi-ctr">0.00%</h2>
+                            <span class="kpi-subtext">Click-through rate performance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts & Campaign Performance -->
+                <div class="dashboard-grid">
+                    <div class="chart-container glass-card">
+                        <h3>Campaign Spend Distribution</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="campaignSpendChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="performance-table-container glass-card">
+                        <h3>Campaign Metrics Summary</h3>
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Campaign</th>
+                                        <th>Advertiser</th>
+                                        <th>Budget / Spend</th>
+                                        <th>CTR</th>
+                                        <th>Revenue</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="performance-table-body">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: CAMPAIGNS -->
+            <section id="tab-campaigns" class="tab-pane">
+                <div class="campaigns-layout">
+                    <!-- Campaigns List Grid -->
+                    <div class="campaign-list-column">
+                        <div class="header-action-row">
+                            <h3>Active Campaigns</h3>
+                        </div>
+                        <div class="campaign-grid" id="campaign-cards-container">
+                            <!-- Campaign cards -->
+                        </div>
+                    </div>
+
+                    <!-- Create/Update Campaign Form -->
+                    <div class="form-column glass-card">
+                        <h3 id="campaign-form-title">Create New Campaign</h3>
+                        <form id="campaign-form" onsubmit="handleCampaignSubmit(event)">
+                            <input type="hidden" id="form-campaign-id">
+                            
+                            <div class="form-group">
+                                <label for="campaign-name">Campaign Name</label>
+                                <input type="text" id="campaign-name" placeholder="E.g., Tech Enthusiasts Promotion" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="campaign-advertiser">Advertiser Name</label>
+                                    <input type="text" id="campaign-advertiser" placeholder="E.g., AppleCorp" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="campaign-bid">Bid Amount ($ / CPM)</label>
+                                    <input type="number" id="campaign-bid" step="0.01" min="0.01" placeholder="E.g., 2.50" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="campaign-budget">Total Campaign Budget ($)</label>
+                                <input type="number" id="campaign-budget" step="1" min="10" placeholder="E.g., 1000" required>
+                            </div>
+
+                            <div class="targeting-section">
+                                <h4>Targeting Parameters</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="campaign-age-min">Min Age</label>
+                                        <input type="number" id="campaign-age-min" min="0" max="100" value="18">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="campaign-age-max">Max Age</label>
+                                        <input type="number" id="campaign-age-max" min="0" max="100" value="45">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="campaign-location">Target Location</label>
+                                    <input type="text" id="campaign-location" placeholder="E.g., Mumbai or All" value="All">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="campaign-interests">Target Interests (Comma-separated)</label>
+                                    <input type="text" id="campaign-interests" placeholder="E.g., Technology, Gaming, Gadgets">
+                                    <small class="form-tip">User must match at least one interest to qualify.</small>
+                                </div>
+                            </div>
+
+                            <div class="creative-section">
+                                <h4>Advertisement Creative</h4>
+                                <div class="form-group">
+                                    <label for="campaign-ad-title">Ad Headline</label>
+                                    <input type="text" id="campaign-ad-title" placeholder="E.g., 50% Off Smartwatches!" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="campaign-ad-body">Ad Description</label>
+                                    <textarea id="campaign-ad-body" placeholder="Describe the advertisement details..." required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="campaign-ad-url">Image Creative URL</label>
+                                    <input type="url" id="campaign-ad-url" value="https://picsum.photos/300/250" placeholder="E.g., https://picsum.photos/300/250">
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" onclick="resetCampaignForm()">Clear</button>
+                                <button type="submit" class="btn btn-primary" id="btn-campaign-submit">Publish Campaign</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: USERS -->
+            <section id="tab-users" class="tab-pane">
+                <div class="users-layout">
+                    <!-- User Profiles Table -->
+                    <div class="user-list-column glass-card">
+                        <h3>Demographic Database</h3>
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Age</th>
+                                        <th>Location</th>
+                                        <th>Interest Tags</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-table-body">
+                                    <!-- Dynamic user rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Create User Form -->
+                    <div class="form-column glass-card">
+                        <h3>Add User Profile</h3>
+                        <form id="user-form" onsubmit="handleUserSubmit(event)">
+                            <div class="form-group">
+                                <label for="user-name">Full Name</label>
+                                <input type="text" id="user-name" placeholder="E.g., Saksham M." required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="user-age">Age</label>
+                                    <input type="number" id="user-age" min="1" max="120" placeholder="E.g., 22" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="user-location">Location</label>
+                                    <input type="text" id="user-location" placeholder="E.g., Mumbai" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user-interests">Interest Tags (Comma-separated)</label>
+                                <input type="text" id="user-interests" placeholder="E.g., Technology, Cars, Fitness" required>
+                                <small class="form-tip">Used to compute ad relevancy scoring.</small>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-block">Add Profile</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: RTB SIMULATOR -->
+            <section id="tab-simulator" class="tab-pane">
+                <div class="simulator-layout">
+                    <!-- Setup Panel -->
+                    <div class="sim-setup-column glass-card">
+                        <h3>Auction Setup</h3>
+                        <div class="form-group">
+                            <label for="sim-user-select">Select User Profile</label>
+                            <select id="sim-user-select" class="form-select">
+                                <!-- Dynamic options -->
+                            </select>
+                            <div class="user-preview-card" id="sim-user-preview">
+                                <!-- Render selected user profile summary -->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sim-ip">Simulator IP Address</label>
+                            <input type="text" id="sim-ip" value="192.168.1.45" placeholder="E.g., 192.168.1.45">
+                            <small class="form-tip">Use suspicious IPs like <b>192.168.100.100</b> to trigger fraud detection, or spam requests to trigger rate limiting!</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sim-device">Device Type</label>
+                            <select id="sim-device" class="form-select">
+                                <option value="Desktop">Desktop</option>
+                                <option value="Mobile">Mobile</option>
+                                <option value="Tablet">Tablet</option>
+                            </select>
+                        </div>
+
+                        <button type="button" class="btn btn-primary btn-block" onclick="runRtbSimulation()">
+                            <i data-lucide="play" class="btn-icon-inside"></i> Run RTB Auction
+                        </button>
+                    </div>
+
+                    <!-- Output Console & Ad View -->
+                    <div class="sim-output-column">
+                        <!-- Auction Trace Terminal -->
+                        <div class="terminal-card">
+                            <div class="terminal-header">
+                                <div class="terminal-buttons">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="terminal-title">RTB Engine Log Trace</div>
+                            </div>
+                            <div class="terminal-body" id="sim-terminal-body">
+                                <span class="terminal-placeholder">// Select a user and click 'Run RTB Auction' to inspect live tracing.</span>
+                            </div>
+                        </div>
+
+                        <!-- Ad Renderer -->
+                        <div class="ad-renderer-card glass-card">
+                            <h3>Rendered Advertisement Outcome</h3>
+                            <div class="ad-render-area" id="ad-render-area">
+                                <div class="ad-placeholder">
+                                    <i data-lucide="image"></i>
+                                    <span>Waiting for Auction Winner</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB: LOGS -->
+            <section id="tab-logs" class="tab-pane">
+                <div class="logs-layout">
+                    <!-- Bid History -->
+                    <div class="log-column glass-card">
+                        <div class="header-action-row">
+                            <h3>Auction Transaction History</h3>
+                        </div>
+                        <div class="table-wrapper log-table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Campaign</th>
+                                        <th>User</th>
+                                        <th>Bid</th>
+                                        <th>Score</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="history-table-body">
+                                    <!-- History rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Fraud Logs -->
+                    <div class="log-column glass-card">
+                        <div class="header-action-row">
+                            <h3>Fraud & Security Exceptions</h3>
+                        </div>
+                        <div class="table-wrapper log-table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>IP Address</th>
+                                        <th>User ID</th>
+                                        <th>Reason</th>
+                                        <th>Severity</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="fraud-table-body">
+                                    <!-- Fraud logs -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Custom Script -->
+    <script src="/static/app.js"></script>
+</body>
+</html>

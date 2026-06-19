@@ -1,0 +1,453 @@
+<mxfile host="app.diagrams.net" modified="2026-06-18T13:00:00.000Z" agent="AdSphere-RTB" version="21.0.0" type="device">
+  <diagram name="AdSphere RTB Architecture" id="adsphere-rtb-arch">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="950" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!--  TITLE                                                  -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="2" value="AdSphere — Real-Time Bidding (RTB) System Architecture"
+          style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;
+                 whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#1E3A5F;"
+          vertex="1" parent="1">
+          <mxGeometry x="280" y="18" width="840" height="38" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!--  LAYER LABELS                                           -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="L1" value="CLIENT" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=9;fontStyle=3;fontColor=#94A3B8;" vertex="1" parent="1">
+          <mxGeometry x="10" y="82" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="L2" value="GATEWAY" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=9;fontStyle=3;fontColor=#94A3B8;" vertex="1" parent="1">
+          <mxGeometry x="10" y="172" width="65" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="L3" value="SECURITY" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=9;fontStyle=3;fontColor=#94A3B8;" vertex="1" parent="1">
+          <mxGeometry x="10" y="282" width="65" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="L4" value="BIDDING" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=9;fontStyle=3;fontColor=#94A3B8;" vertex="1" parent="1">
+          <mxGeometry x="10" y="402" width="65" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="L5" value="STORAGE" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=9;fontStyle=3;fontColor=#94A3B8;" vertex="1" parent="1">
+          <mxGeometry x="10" y="532" width="65" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="L6" value="ANALYTICS" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=9;fontStyle=3;fontColor=#94A3B8;" vertex="1" parent="1">
+          <mxGeometry x="10" y="652" width="65" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!--  ROW 1 — CLIENT BROWSER                                 -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="3" value="&lt;b&gt;Client Browser&lt;/b&gt;&lt;br/&gt;Publisher Page"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#555555;
+                 fontColor=#333333;fontSize=11;shadow=1;arcSize=15;"
+          vertex="1" parent="1">
+          <mxGeometry x="100" y="72" width="185" height="56" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!--  ROW 2 — FASTAPI GATEWAY                                -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="4" value="&lt;b&gt;FastAPI API Gateway&lt;/b&gt;&lt;br/&gt;REST Endpoints · Swagger UI"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3D52A0;strokeColor=#2C3E7A;
+                 fontColor=#ffffff;fontSize=11;shadow=1;arcSize=15;"
+          vertex="1" parent="1">
+          <mxGeometry x="430" y="162" width="210" height="56" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!--  ROW 3 — FRAUD GUARD                                    -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="5" value="&lt;b&gt;Fraud Guard&lt;/b&gt;&lt;br/&gt;IP Blacklist · Rate Limiter"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C0392B;strokeColor=#922B21;
+                 fontColor=#ffffff;fontSize=11;shadow=1;arcSize=15;"
+          vertex="1" parent="1">
+          <mxGeometry x="170" y="272" width="185" height="56" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!--  ROW 4 — BIDDING ENGINE + TARGETING + RANKING           -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="6" value="&lt;b&gt;Bidding Engine&lt;/b&gt;&lt;br/&gt;Auction Orchestrator"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2471A3;strokeColor=#1A5276;
+                 fontColor=#ffffff;fontSize=11;shadow=1;arcSize=15;"
+          vertex="1" parent="1">
+          <mxGeometry x="430" y="392" width="210" height="56" as="geometry" />
+        </mxCell>
+
+        <mxCell id="7" value="&lt;b&gt;Campaign Targeting Matcher&lt;/b&gt;&lt;br/&gt;Age · Location · Interests"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7D3C98;strokeColor=#6C3483;
+                 fontColor=#ffffff;fontSize=11;shadow=1;arcSize=15;"
+          vertex="1" parent="1">
+          <mxGeometry x="720" y="352" width="200" height="56" as="geometry" />
+        </mxCell>
+
+        <mxCell id="8" value="&lt;b&gt;Ranking Engine&lt;/b&gt;&lt;br/&gt;Jaccard Similarity · CTR Score"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1A6FA5;strokeColor=#0E5080;
+                 fontColor=#ffffff;fontSize=11;shadow=1;arcSize=15;"
+          vertex="1" parent="1">
+          <mxGeometry x="720" y="432" width="200" height="56" as="geometry" />
+        </mxCell>
+
+        <mxCell id="9" value="&lt;b&gt;Budget Manager&lt;/b&gt;&lt;br/&gt;Atomic Spend · DB Sync"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B7770D;strokeColor=#9A640A;
+                 fontColor=#ffffff;fontSize=11;shadow=1;arcSize=15;"
+          vertex="1" parent="1">
+          <mxGeometry x="430" y="472" width="210" height="56" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!--  ROW 5 — STORAGE LAYER                                  -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="10" value="&lt;b&gt;Redis Cache&lt;/b&gt;&lt;br/&gt;In-Memory Fallback"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#148F77;strokeColor=#0E6655;
+                 fontColor=#ffffff;fontSize=11;shadow=1;arcSize=15;"
+          vertex="1" parent="1">
+          <mxGeometry x="245" y="552" width="185" height="56" as="geometry" />
+        </mxCell>
+
+        <mxCell id="13" value="&lt;b&gt;PostgreSQL / SQLite&lt;/b&gt;&lt;br/&gt;Primary Database"
+          style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;
+                 fillColor=#1E6B3C;strokeColor=#145228;fontColor=#ffffff;
+                 fontSize=11;shadow=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="450" y="548" width="170" height="64" as="geometry" />
+        </mxCell>
+
+        <mxCell id="11" value="&lt;b&gt;Bid History DB&lt;/b&gt;&lt;br/&gt;WON · LOST · FILTERED"
+          style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;
+                 fillColor=#2E4057;strokeColor=#1E3047;fontColor=#ffffff;
+                 fontSize=10;shadow=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="720" y="548" width="160" height="64" as="geometry" />
+        </mxCell>
+
+        <mxCell id="12" value="&lt;b&gt;Fraud Logs DB&lt;/b&gt;"
+          style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;
+                 fillColor=#7B1818;strokeColor=#5C0F0F;fontColor=#ffffff;
+                 fontSize=10;shadow=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="90" y="552" width="130" height="64" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!--  ROW 6 — ANALYTICS LAYER                                -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="14" value="&lt;b&gt;Impression Pixel API&lt;/b&gt;&lt;br/&gt;1×1 GIF Tracker"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#148F77;strokeColor=#0E6655;
+                 fontColor=#ffffff;fontSize=10;shadow=1;arcSize=15;"
+          vertex="1" parent="1">
+          <mxGeometry x="85" y="672" width="155" height="52" as="geometry" />
+        </mxCell>
+
+        <mxCell id="15" value="&lt;b&gt;Click Redirect Tracker&lt;/b&gt;&lt;br/&gt;HTTP 307 Redirect"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#148F77;strokeColor=#0E6655;
+                 fontColor=#ffffff;fontSize=10;shadow=1;arcSize=15;"
+          vertex="1" parent="1">
+          <mxGeometry x="260" y="672" width="155" height="52" as="geometry" />
+        </mxCell>
+
+        <mxCell id="16" value="&lt;b&gt;Mock Kafka&lt;/b&gt;&lt;br/&gt;Event Stream Producer/Consumer"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#CA6F1E;strokeColor=#A04000;
+                 fontColor=#ffffff;fontSize=10;shadow=1;arcSize=15;"
+          vertex="1" parent="1">
+          <mxGeometry x="445" y="672" width="180" height="52" as="geometry" />
+        </mxCell>
+
+        <mxCell id="17" value="&lt;b&gt;Analytics Processor&lt;/b&gt;&lt;br/&gt;Impressions · Clicks · Revenue"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7D3C98;strokeColor=#6C3483;
+                 fontColor=#ffffff;fontSize=10;shadow=1;arcSize=15;"
+          vertex="1" parent="1">
+          <mxGeometry x="655" y="672" width="185" height="52" as="geometry" />
+        </mxCell>
+
+        <mxCell id="18" value="&lt;b&gt;Analytics DB&lt;/b&gt;&lt;br/&gt;Metrics Store"
+          style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;
+                 fillColor=#1E6B3C;strokeColor=#145228;fontColor=#ffffff;
+                 fontSize=10;shadow=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="880" y="668" width="140" height="62" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!--  EDGES                                                  -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+
+        <!-- Client → FastAPI: Bid Request -->
+        <mxCell id="e1" value="1. Bid Request"
+          style="edgeStyle=elbowEdgeStyle;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;
+                 entryX=0;entryY=0.5;entryDx=0;entryDy=0;
+                 strokeColor=#1E3A5F;fontColor=#1E3A5F;fontSize=9;fontStyle=1;
+                 endArrow=block;endFill=1;"
+          edge="1" source="3" target="4" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- FastAPI → Client: 9. Winning Ad (dashed green) -->
+        <mxCell id="e2" value="9. Winning Ad + Trackers"
+          style="edgeStyle=elbowEdgeStyle;html=1;exitX=0;exitY=0.3;exitDx=0;exitDy=0;
+                 entryX=1;entryY=0.3;entryDx=0;entryDy=0;
+                 strokeColor=#27AE60;fontColor=#27AE60;fontSize=9;fontStyle=1;
+                 dashed=1;endArrow=block;endFill=1;"
+          edge="1" source="4" target="3" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="175" />
+              <mxPoint x="380" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- FastAPI → Fraud Guard -->
+        <mxCell id="e3" value="1. Fraud Check"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#C0392B;fontColor=#C0392B;fontSize=9;fontStyle=1;
+                 endArrow=block;endFill=1;"
+          edge="1" source="4" target="5" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- FastAPI → Bidding Engine -->
+        <mxCell id="e4" value="2. Run Auction"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#2471A3;fontColor=#2471A3;fontSize=9;fontStyle=1;
+                 endArrow=block;endFill=1;"
+          edge="1" source="4" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Fraud Guard → Fraud Logs DB -->
+        <mxCell id="e5" value="3b. Log Event"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#7B1818;fontColor=#7B1818;fontSize=9;
+                 endArrow=block;endFill=1;"
+          edge="1" source="5" target="12" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Fraud Guard → Redis: rate-limit check -->
+        <mxCell id="e6" value="3a. Rate Check"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#148F77;fontColor=#148F77;fontSize=9;
+                 endArrow=block;endFill=1;"
+          edge="1" source="5" target="10" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Bidding Engine → Campaign Targeting -->
+        <mxCell id="e7" value="5. Filter Campaigns"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#7D3C98;fontColor=#7D3C98;fontSize=9;
+                 endArrow=block;endFill=1;"
+          edge="1" source="6" target="7" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Bidding Engine → Ranking Engine -->
+        <mxCell id="e8" value="6. Score Campaigns"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#1A6FA5;fontColor=#1A6FA5;fontSize=9;
+                 endArrow=block;endFill=1;"
+          edge="1" source="6" target="8" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Bidding Engine → Budget Manager -->
+        <mxCell id="e9" value="7. Check Budget"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#B7770D;fontColor=#B7770D;fontSize=9;fontStyle=1;
+                 endArrow=block;endFill=1;"
+          edge="1" source="6" target="9" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Bidding Engine → Bid History DB -->
+        <mxCell id="e10" value="8. Log WON/LOST"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#2E4057;fontColor=#2E4057;fontSize=9;
+                 endArrow=block;endFill=1;"
+          edge="1" source="6" target="11" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Budget Manager → Redis: atomic deduct -->
+        <mxCell id="e11" value="7a. Atomic Deduct"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#148F77;fontColor=#148F77;fontSize=9;
+                 endArrow=block;endFill=1;"
+          edge="1" source="9" target="10" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Budget Manager → PostgreSQL: persist -->
+        <mxCell id="e12" value="7b. Write-Back"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#1E6B3C;fontColor=#1E6B3C;fontSize=9;
+                 endArrow=block;endFill=1;"
+          edge="1" source="9" target="13" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Redis → PostgreSQL: fallback (dashed) -->
+        <mxCell id="e13" value="4b. DB Fallback"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;
+                 strokeColor=#1E6B3C;fontColor=#1E6B3C;fontSize=9;
+                 endArrow=open;endFill=0;"
+          edge="1" source="10" target="13" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- FastAPI → Impression Pixel: step 10 -->
+        <mxCell id="e14" value="10. Ad Loads"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#148F77;fontColor=#148F77;fontSize=9;
+                 endArrow=block;endFill=1;"
+          edge="1" source="4" target="14" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- FastAPI → Click Redirect: step 11 -->
+        <mxCell id="e15" value="11. User Clicks"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#148F77;fontColor=#148F77;fontSize=9;
+                 endArrow=block;endFill=1;"
+          edge="1" source="4" target="15" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Impression Pixel → Kafka -->
+        <mxCell id="e16" value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#CA6F1E;endArrow=block;endFill=1;"
+          edge="1" source="14" target="16" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Click Redirect → Kafka -->
+        <mxCell id="e17" value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#CA6F1E;endArrow=block;endFill=1;"
+          edge="1" source="15" target="16" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Kafka → Analytics Processor -->
+        <mxCell id="e18" value="12. Events"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#7D3C98;fontColor=#7D3C98;fontSize=9;fontStyle=1;
+                 endArrow=block;endFill=1;"
+          edge="1" source="16" target="17" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Analytics Processor → Analytics DB -->
+        <mxCell id="e19" value="12a. Persist Metrics"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#1E6B3C;fontColor=#1E6B3C;fontSize=9;
+                 endArrow=block;endFill=1;"
+          edge="1" source="17" target="18" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Analytics Processor → Redis: evict stale cache -->
+        <mxCell id="e20" value="12b. Evict Cache"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;
+                 strokeColor=#148F77;fontColor=#148F77;fontSize=9;
+                 endArrow=open;endFill=0;"
+          edge="1" source="17" target="10" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Bidding Engine → Redis: load user profile -->
+        <mxCell id="e21" value="4a. Cache Hit"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;
+                 strokeColor=#148F77;fontColor=#148F77;fontSize=9;
+                 endArrow=block;endFill=1;"
+          edge="1" source="6" target="10" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!--  LEGEND BOX                                             -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="leg0" value=""
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#CBD5E1;
+                 arcSize=5;shadow=0;"
+          vertex="1" parent="1">
+          <mxGeometry x="985" y="72" width="175" height="300" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg_title" value="Legend"
+          style="text;html=1;strokeColor=none;fillColor=none;align=center;
+                 fontSize=12;fontStyle=1;fontColor=#1E3A5F;"
+          vertex="1" parent="1">
+          <mxGeometry x="985" y="78" width="175" height="24" as="geometry" />
+        </mxCell>
+
+        <mxCell id="leg1" value="API Gateway"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3D52A0;strokeColor=#2C3E7A;fontColor=#ffffff;fontSize=9;"
+          vertex="1" parent="1">
+          <mxGeometry x="998" y="108" width="148" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="leg2" value="Fraud / Security"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C0392B;strokeColor=#922B21;fontColor=#ffffff;fontSize=9;"
+          vertex="1" parent="1">
+          <mxGeometry x="998" y="140" width="148" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="leg3" value="Bidding Engine"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2471A3;strokeColor=#1A5276;fontColor=#ffffff;fontSize=9;"
+          vertex="1" parent="1">
+          <mxGeometry x="998" y="172" width="148" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="leg4" value="Targeting / Ranking"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7D3C98;strokeColor=#6C3483;fontColor=#ffffff;fontSize=9;"
+          vertex="1" parent="1">
+          <mxGeometry x="998" y="204" width="148" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="leg5" value="Cache / Budget"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#148F77;strokeColor=#0E6655;fontColor=#ffffff;fontSize=9;"
+          vertex="1" parent="1">
+          <mxGeometry x="998" y="236" width="148" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="leg6" value="Database (Cylinder)"
+          style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#1E6B3C;strokeColor=#145228;fontColor=#ffffff;fontSize=9;"
+          vertex="1" parent="1">
+          <mxGeometry x="998" y="268" width="148" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="leg7" value="Event Streaming"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#CA6F1E;strokeColor=#A04000;fontColor=#ffffff;fontSize=9;"
+          vertex="1" parent="1">
+          <mxGeometry x="998" y="312" width="148" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="leg8" value="Analytics"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7D3C98;strokeColor=#6C3483;fontColor=#ffffff;fontSize=9;"
+          vertex="1" parent="1">
+          <mxGeometry x="998" y="344" width="148" height="26" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!--  SCORING FORMULA NOTE BOX                               -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="note1" value="&lt;b&gt;Auction Scoring Formula&lt;/b&gt;&lt;br/&gt;Score = Bid Amount × CTR × Relevance&lt;br/&gt;&lt;i&gt;Relevance = 0.1 + (Jaccard × 0.9)&lt;/i&gt;"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#BFDBFE;
+                 fontColor=#1E3A5F;fontSize=10;align=center;shadow=0;"
+          vertex="1" parent="1">
+          <mxGeometry x="985" y="395" width="175" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!--  FRAUD DETECTION NOTE BOX                               -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="note2" value="&lt;b&gt;Fraud Detection&lt;/b&gt;&lt;br/&gt;• IP Blacklist → Score 1.0&lt;br/&gt;• Rate Limit (&gt;10/10s) → 0.9&lt;br/&gt;• Invalid User → 0.95"
+          style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF5F5;strokeColor=#FCA5A5;
+                 fontColor=#7B1818;fontSize=10;align=left;shadow=0;"
+          vertex="1" parent="1">
+          <mxGeometry x="985" y="480" width="175" height="80" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
